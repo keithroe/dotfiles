@@ -12,6 +12,8 @@ vim.opt.autoread = true
 vim.opt.whichwrap = "<>"
 vim.opt.cursorline = false
 
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust_analyzer" })
+
 -- general
 lvim.log.level = "info"
 lvim.format_on_save = {
@@ -140,6 +142,9 @@ lvim.plugins = {
     {
 	--'neovim/nvim-lspconfig',
 	"simrat39/rust-tools.nvim",
+    config = function()
+    end
+    -- ft = { "rust", "rs" },
 	--'williamboman/mason.nvim',   
         --'williamboman/mason-lspconfig.nvim'
     },
@@ -207,17 +212,66 @@ lvim.builtin.which_key.mappings["f"] = {
     h = { "<cmd>Telescope help_tags<cr>", "help" },
 }
 
-local rt = require("rust-tools")
-rt.setup({
-  server = {
-    on_attach = function(_, bufnr)
-      -- Hover actions
-      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-      -- Code action groups
-      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-    end,
+local status_ok, rust_tools = pcall(require, "rust-tools")
+if not status_ok then
+  return
+end
+local opts = {
+  tools = {
+    executor = require("rust-tools/executors").termopen, -- can be quickfix or termopen
+    reload_workspace_from_cargo_toml = true,
+    inlay_hints = {
+      auto = true,
+      only_current_line = false,
+      show_parameter_hints = false,
+      parameter_hints_prefix = "<-",
+      other_hints_prefix = "=>",
+      max_len_align = false,
+      max_len_align_padding = 1,
+      right_align = false,
+      right_align_padding = 7,
+      highlight = "Comment",
+    },
+    hover_actions = {
+      --border = {
+      --        { "╭", "FloatBorder" },
+      --        { "─", "FloatBorder" },
+      --        { "╮", "FloatBorder" },
+      --        { "│", "FloatBorder" },
+      --        { "╯", "FloatBorder" },
+      --        { "─", "FloatBorder" },
+      --        { "╰", "FloatBorder" },
+      --        { "│", "FloatBorder" },
+      --},
+      auto_focus = true,
+    },
   },
-})
+  server = {
+    on_attach = require("lvim.lsp").common_on_attach,
+    on_init = require("lvim.lsp").common_on_init,
+    -- settings = {
+    --   ["rust-analyzer"] = {
+    --     checkOnSave = {
+    --       command = "clippy"
+    --     }
+    --   }
+    -- },
+  },
+}
+rust_tools.setup(opts)
+
+--local rt = require("rust-tools")
+
+--rt.setup({
+--  server = {
+--    on_attach = function(_, bufnr)
+--      -- Hover actions
+--      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+--      -- Code action groups
+--      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+--    end,
+--  },
+--})
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
 -- vim.api.nvim_create_autocmd("FileType", {
