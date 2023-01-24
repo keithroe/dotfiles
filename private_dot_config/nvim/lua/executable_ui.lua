@@ -13,7 +13,7 @@ vim.o.termguicolors = true
 -- Set 4 lines on the edge of the screen
 vim.o.scrolloff = 4
 -- Highlight cursor line
-vim.o.cursorline = true
+vim.o.cursorline = false
 -- Show column markers at column 80 and 100
 vim.o.colorcolumn = 80
 -- One status line for Neovim instance instead one per window
@@ -29,5 +29,3 @@ vim.cmd 'colorscheme nordfox'
 -- Hides tildes from non-existing lines
 --
 vim.cmd 'hi EndOfBuffer guifg=bg'
--- Configuration for the status line
---TODO: require 'lualine-theme'

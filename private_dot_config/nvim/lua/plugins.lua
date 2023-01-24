@@ -46,8 +46,11 @@ require("packer").startup(function(use)
     -- See hrsh7th other plugins for more great completion sources!
     -- Snippet engine
     use('hrsh7th/vim-vsnip')
+
     -- Adds extra functionality over rust analyzer
     use("simrat39/rust-tools.nvim")
+
+    use("p00f/clangd_extensions.nvim")
 
     -- Optional
     use("nvim-lua/popup.nvim")

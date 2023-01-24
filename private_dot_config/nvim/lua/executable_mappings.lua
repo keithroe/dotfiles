@@ -1,11 +1,11 @@
 --------------------------------------------------------------------------------
--- MAPPINGS
+-- mappings
 --------------------------------------------------------------------------------
 
--- Map the leader key to space. *VERY* important
+-- Map the leader key to space
 vim.g.mapleader = " "
 
--- GENERAL COMMANDS
+-- general commands
 --------------------------------------------------------------------------------
 
 -- Write current buffer
@@ -17,7 +17,7 @@ vim.keymap.set('n', '<leader>qq', '<cmd>qall!<cr>')
 -- Clear search highlights
 vim.keymap.set('n', '<leader> ', '<cmd>noh<cr>')
 
--- NEOVIM CONFIGURATION
+-- neovim configuration
 --------------------------------------------------------------------------------
 
 -- Open mappings
@@ -33,7 +33,7 @@ vim.keymap.set('n', '<leader>ncs', '<cmd>e ~/.config/nvim/lua/settings.lua<cr>')
 -- Open init
 vim.keymap.set('n', '<leader>nci', '<cmd>e ~/.config/nvim/init.lua<cr>')
 
--- WINDOW
+-- window
 --------------------------------------------------------------------------------
 
 -- Increase the size of the current window horizontally
@@ -41,7 +41,7 @@ vim.keymap.set('n', '<leader>wf', '<C-w>|')
 -- Increase the size of the current window vertically
 vim.keymap.set('n', '<leader>wfh', '<C-w>-')
 -- Create a new window horizontally
-vim.keymap.set('n', '<leader>ws', '<C-w>s')
+vim.keymap.set('n', '<leader>wh', '<C-w>s')
 -- Create a new window vertically
 vim.keymap.set('n', '<leader>wv', '<C-w>v')
 -- Quit the current window
@@ -152,7 +152,21 @@ vim.keymap.set('n', '<leader>lp', '<cmd>lua vim.diagnostic.goto_prev({ float = f
 vim.keymap.set('n', '<leader>ln', '<cmd>lua vim.diagnostic.goto_next({ float = false })<cr>')
 --vim.keymap.set('n', '<leader> ', '<cmd>lua vim.diagnostic.goto_next({ float = false })<cr>')
 
--- LANGUAGE SPECIFIC
+-- completion
+--------------------------------------------------------------------------------
+-- NB: these are set in lsp.lua in cmp.setup.  can move here if i can figure out
+--     how to apply them only when complete menu is up 
+--local cmp = require("cmp")
+--vim.keymap.set('i', '<Tab>', cmp.mapping.select_next_item())
+--vim.keymap.set('i', '<S-Tab>', cmp.mapping.select_prev_item())
+--vim.keymap.set('i', '<C-e>', cmp.mapping.close())
+--vim.keymap.set('i', '<C-Space>', cmp.mapping.complete())
+--vim.keymap.set('i', '<CR>', cmp.mapping.confirm({
+--    behavior = cmp.ConfirmBehavior.Insert,
+--    select = true,
+--}))
+
+-- language specific
 --------------------------------------------------------------------------------
 
 -- Typescript
@@ -163,11 +177,8 @@ vim.keymap.set('n', '<leader>pt', '<cmd>!ts-node %<cr>')
 -- Run current script with node
 vim.keymap.set('n', '<leader>pj', '<cmd>!node %<cr>')
 
--- PLUGINS
+-- plugins
 --------------------------------------------------------------------------------
-
--- Emmet
-vim.keymap.set('i', '<C-a>', '<Esc>a<C-y>;')
 
 -- Vimspector
 vim.keymap.set('n', '<leader>il', '<Plug>VimspectorLaunch')

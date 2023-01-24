@@ -17,7 +17,7 @@ vim.o.backup = false
 vim.o.swapfile = false
 -- Used to determine how many ms the CursorHold autocommand should wait before
 -- kicking in
-vim.o.updatetime = 250
+vim.o.updatetime = 150
 -- Undo settings, keep a much longer history of
 -- undoes even between sessions by storing in an external file
 vim.o.undodir = vim.env.HOME .. '/.undodir'
@@ -29,7 +29,7 @@ vim.o.ignorecase = false
 -- Show search matches as you type
 vim.o.incsearch = true
 -- Let the cursor go anywhere in all modes
-vim.o.virtualedit = 'all'
+vim.o.virtualedit = 'none'
 -- Show a list when pressing tab and complete
 vim.o.wildmode = 'list:longest,full'
 -- Convert tab to spaces
@@ -51,13 +51,24 @@ vim.o.backspace = 'indent,eol,start'
 vim.o.shiftround = false
 -- Use case sensitive when the terms are not all in smallcase
 vim.o.smartcase = true
+
 -- Show not visible characters
-vim.o.list = true
-vim.o.listchars = 'trail:⋅,space:⋅'
+--vim.o.list = true
+--vim.o.listchars = 'trail:⋅,space:⋅'
+
 -- Uses the indentation to determine where to create folds
 --vim.o.foldmethod = 'indent'
--- auto complete options
+
+-- Set completeopt to have a better completion experience
+-- :help completeopt
+-- menuone: popup even when there's only one match
+-- noinsert: Do not insert text until a selection is made
+-- noselect: Do not auto-select, nvim-cmp plugin will handle this for us.
 vim.o.completeopt = 'menuone,noinsert'
+vim.o.completeopt = "menuone,noinsert,noselect"
+-- Avoid showing extra messages when using completion
+vim.opt.shortmess = vim.opt.shortmess + "c"
+
 -- Set the identation on
 vim.cmd 'filetype plugin indent on';
 -- Enable filetype plugins
