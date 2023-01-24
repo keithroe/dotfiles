@@ -53,7 +53,7 @@ vim.keymap.set('n', '<C-j>', '<C-w>j')
 vim.keymap.set('n', '<C-k>', '<C-w>k', {noremap=true})
 vim.keymap.set('n', '<C-l>', '<C-w>l')
 
--- BUFFERS
+-- buffers
 --------------------------------------------------------------------------------
 
 -- Go to next buffer
@@ -69,31 +69,16 @@ vim.keymap.set('n', '<leader>bl', '<cmd>ls<cr>')
 -- Delete all buffers
 vim.keymap.set('n', '<leader>bk', '<cmd>bufdo bd!<cr>')
 
--- TELESCOPE
+-- telescope
 --------------------------------------------------------------------------------
 
--- Search through Neovim commands
-vim.keymap.set('n', '<leader>fc', '<cmd>Telescope commands theme=dropdown<cr>')
--- Search through Neovim options
-vim.keymap.set('n', '<leader>fvo', '<cmd>Telescope vim_options theme=dropdown<cr>')
--- Search through the loaded configuration files and reload it
-vim.keymap.set('n', '<leader>fl', '<cmd>Telescope reloader theme=dropdown<cr>')
--- Searhch through the files known to Git in the current git folder
-vim.keymap.set('n', '<leader>ff', '<cmd>Telescope git_files theme=dropdown<cr>')
--- Search through the available Git branches
-vim.keymap.set('n', '<leader>fgb', '<cmd>Telescope git_branches theme=dropdown<cr>')
--- Search through the available Git commits
-vim.keymap.set('n', '<leader>fgc', '<cmd>Telescope git_commits theme=dropdown<cr>')
--- Search through the avaialble Git stash
-vim.keymap.set('n', '<leader>fgs', '<cmd>Telescope git_stash theme=dropdown<cr>')
--- Search through the available buffers
-vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers theme=dropdown<cr>')
--- Search through the files in the current folder using grep syntax
-vim.keymap.set('n', '<leader>fgr', '<cmd>Telescope live_grep theme=dropdown<cr>')
--- Search throug the available Neovim keymap configuration
-vim.keymap.set('n', '<leader>fk', '<cmd>Telescope keymaps theme=dropdown<cr>')
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
--- NVIMTREE
+-- nvim-tree
 --------------------------------------------------------------------------------
 
 -- Toggle Nvimtree
@@ -121,17 +106,20 @@ vim.keymap.set('n', '<leader>gdm', '<cmd>Gvdiff master<cr>')
 -- Push the current branch as a new branch to repository
 vim.keymap.set('n', '<leader>gpnb', '<cmd>!gpnb<cr>')
 
--- TEST
---------------------------------------------------------------------------------
 
--- Test the nearest test from the current position
-vim.keymap.set('n', '<leader>tn', '<cmd>:TestNearest<CR>')
--- Test the current file
-vim.keymap.set('n', '<leader>tf', '<cmd>:TestFile<cr>')
--- Test the current suite
-vim.keymap.set('n', '<leader>ts', '<cmd>TestSuite<CR>')
--- Test the last test done
-vim.keymap.set('n', '<leader>tl', '<cmd>TestLast<CR>')
+-- trouble
+--------------------------------------------------------------------------------
+vim.keymap.set('n', '<leader>tt', '<cmd>TodoTrouble<cr>')
+vim.keymap.set('n', '<leader>tw', '<cmd>TroubleToggle workspace_diagnostics<cr>')
+vim.keymap.set('n', '<leader>td', '<cmd>TroubleToggle document_diagnostics<cr>')
+vim.keymap.set('n', '<leader>tq', '<cmd>TodoTrouble quickfix<cr>')
+vim.keymap.set('n', '<leader>tl', '<cmd>TodoTrouble loclist<cr>')
+vim.keymap.set('n', '<leader>tr', '<cmd>TodoTrouble references<cr>')
+
+-- floaterm 
+--------------------------------------------------------------------------------
+vim.keymap.set('n', "<C-t>", '<cmd>FloatermToggle myfloat<cr>')
+vim.keymap.set('t', "<C-t>", '<cmd>FloatermToggle myfloat<cr>')
 
 -- LSP
 --------------------------------------------------------------------------------

@@ -1,3 +1,5 @@
+
+
 -- General seetings
 require 'settings'
 -- All the mappings

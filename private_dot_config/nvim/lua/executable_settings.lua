@@ -2,6 +2,14 @@
 -- BASIC SETTINGS
 --------------------------------------------------------------------------------
 
+-- Recommended by nvim-tree: disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwSettings = 1
+vim.g.loaded_netrwFileHandlers = 1
+vim.g.loaded_netrw_gitignore = 1
+
+
 -- Change the terminal title
 vim.o.title = true
 -- No backup file
@@ -70,6 +78,6 @@ vim.g.loaded_netrwPlugin = 1
 
 -- TODO: use whitespace cleanup plugin
 -- Remove trailing spaces before writing the buffer
-vim.api.nvim_command([[
-  autocmd BufWritePre * %s/\s\+$//e
-]])
+--vim.api.nvim_command([[
+--  autocmd BufWritePre * %s/\s\+$//e
+--]])

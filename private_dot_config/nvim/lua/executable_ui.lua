@@ -1,6 +1,5 @@
 --------------------------------------------------------------------------------
 --
---
 -- UI
 --------------------------------------------------------------------------------
 
@@ -19,10 +18,16 @@ vim.o.cursorline = true
 vim.o.colorcolumn = 80
 -- One status line for Neovim instance instead one per window
 vim.o.laststatus = 3
+
 -- Set default theme
 --vim.cmd 'colorscheme night-owl'
-vim.cmd 'colorscheme nord'
+--vim.cmd 'colorscheme nord'
+--vim.cmd 'colorscheme tokyonight-moon'
+--vim.cmd 'colorscheme nordic'
+vim.cmd 'colorscheme nordfox'
+
 -- Hides tildes from non-existing lines
+--
 vim.cmd 'hi EndOfBuffer guifg=bg'
 -- Configuration for the status line
 --TODO: require 'lualine-theme'
