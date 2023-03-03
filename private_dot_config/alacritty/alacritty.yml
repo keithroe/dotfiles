@@ -11,6 +11,13 @@
 #import:
 #  - /path/to/alacritty.yml
 
+#import:
+  # uncomment the flavour you want below:
+  # - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
+  # - ~/.config/alacritty/catppuccin/catppuccin-macchiato.yml
+  # - ~/.config/alacritty/catppuccin/catppuccin-frappe.yml
+  # - ~/.config/alacritty/catppuccin/catppuccin-latte.yml
+
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
@@ -180,7 +187,7 @@ font:
   #builtin_box_drawing: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: false
 
 colors:
   primary:

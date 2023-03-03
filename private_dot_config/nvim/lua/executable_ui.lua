@@ -24,7 +24,11 @@ vim.o.laststatus = 3
 --vim.cmd 'colorscheme nord'
 --vim.cmd 'colorscheme tokyonight-moon'
 --vim.cmd 'colorscheme nordic'
-vim.cmd 'colorscheme nordfox'
+--vim.cmd 'colorscheme nordfox'
+--vim.cmd 'colorscheme dracula'
+--vim.cmd 'colorscheme catppuccin'
+--vim.cmd 'colorscheme blue-moon'
+vim.cmd 'colorscheme material'
 
 -- Hides tildes from non-existing lines
 --

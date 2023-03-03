@@ -9,15 +9,14 @@ vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
 vim.g.loaded_netrw_gitignore = 1
 
-
 -- Change the terminal title
 vim.o.title = true
 -- No backup file
 vim.o.backup = false
 vim.o.swapfile = false
 -- Used to determine how many ms the CursorHold autocommand should wait before
--- kicking in
-vim.o.updatetime = 150
+-- kicking in (ms)
+vim.o.updatetime = 250 
 -- Undo settings, keep a much longer history of
 -- undoes even between sessions by storing in an external file
 vim.o.undodir = vim.env.HOME .. '/.undodir'
@@ -80,15 +79,32 @@ vim.g.loaded_ruby_provider = 0
 -- Disable Perl provider
 vim.g.loaded_perl_provider = 0
 
--- Recommended by nvim-tree:O disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
 -- AUTO COMMANDS
 --------------------------------------------------------------------------------
+local function open_nvim_tree(data)
+
+  -- buffer is a directory
+  local directory = vim.fn.isdirectory(data.file) == 1
+
+  if not directory then
+    return
+  end
+
+  -- change to the directory
+  vim.cmd.cd(data.file)
+
+  -- open the tree
+  require("nvim-tree.api").tree.open()
+end
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+
 
 -- TODO: use whitespace cleanup plugin
 -- Remove trailing spaces before writing the buffer
 --vim.api.nvim_command([[
 --  autocmd BufWritePre * %s/\s\+$//e
 --]])
+--
+--
+--

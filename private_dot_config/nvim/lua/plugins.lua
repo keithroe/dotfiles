@@ -52,20 +52,30 @@ require("packer").startup(function(use)
 
     use("p00f/clangd_extensions.nvim")
 
+    use({
+        "glepnir/lspsaga.nvim",
+        branch = "main",
+        config = function()
+            require('lspsaga').setup({})
+        end,
+    })
+
     -- Optional
     use("nvim-lua/popup.nvim")
     use("nvim-lua/plenary.nvim")
     use("nvim-telescope/telescope.nvim")
 
-    -- Some color scheme other then default
-    -- use("arcticicestudio/nord-vim")
+    -- Color schemes 
     use ({
-        -- color schemes
         'shaunsingh/nord.nvim',
         commit = "78f5f001709b5b321a35dcdc44549ef93185e024", -- WORKAROUND for Invalid character bug
         use 'folke/tokyonight.nvim',
         use 'andersevenrud/nordic.nvim',
-        use "EdenEast/nightfox.nvim"
+        use 'EdenEast/nightfox.nvim',
+        use 'Mofiqul/dracula.nvim',
+        use 'kyazdani42/blue-moon',
+        use 'marko-cerovac/material.nvim',
+        use { "catppuccin/nvim", as = "catppuccin" }
     })
 
     use 'ethanholz/nvim-lastplace'
@@ -136,7 +146,14 @@ end
 --------------------------------------------------------------------------------
 require("nvim-tree").setup({
     sort_by = "case_sensitive",
+    open_on_setup=true,
+    actions = {
+        open_file = {
+            resize_window = true
+        }
+    },
     view = {
+        width=10,
         adaptive_size = true,
         mappings = {
             list = {
@@ -173,15 +190,168 @@ require'nvim-treesitter.configs'.setup {
     }
 }
 
+-- lualine - this should be before colorscheme setup 
+--------------------------------------------------------------------------------
+require('lualine').setup {
+    options = {
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = {
+            statusline = {},
+            winbar = {},
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = false,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+        }
+    },
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_c = {'filename'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
+}
+
+
+-- material colorscheme 
+--------------------------------------------------------------------------------
+require('material').setup({
+
+    contrast = {
+        terminal = false, -- Enable contrast for the built-in terminal
+        sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+        floating_windows = false, -- Enable contrast for floating windows
+        cursor_line = false, -- Enable darker background for the cursor line
+        non_current_windows = true, -- Enable darker background for non-current windows
+        filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
+    },
+
+    styles = { -- Give comments style such as bold, italic, underline etc.
+        comments = { --[[ italic = true ]] },
+        strings = { --[[ bold = true ]] },
+        keywords = { --[[ underline = true ]] },
+        functions = { --[[ bold = true, undercurl = true ]] },
+        variables = {},
+        operators = {},
+        types = {},
+    },
+
+    plugins = { -- Uncomment the plugins that you use to highlight them
+        -- Available plugins:
+        -- "dap",
+        -- "dashboard",
+        -- "gitsigns",
+        -- "hop",
+        -- "indent-blankline",
+        -- "lspsaga",
+        -- "mini",
+        -- "neogit",
+        -- "nvim-cmp",
+        -- "nvim-navic",
+        "nvim-tree",
+        -- "nvim-web-devicons",
+        -- "sneak",
+        "telescope",
+        "trouble",
+        "which-key",
+    },
+
+    disable = {
+        colored_cursor = false, -- Disable the colored cursor
+        borders = false, -- Disable borders between verticaly split windows
+        background = false, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+        term_colors = false, -- Prevent the theme from setting terminal colors
+        eob_lines = false -- Hide the end-of-buffer lines
+    },
+
+    high_visibility = {
+        lighter = false, -- Enable higher contrast text for lighter style
+        darker = false -- Enable higher contrast text for darker style
+    },
+
+    lualine_style = "normal", -- Lualine style ( can be 'stealth' or 'default' )
+
+    async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
+
+    custom_colors = nil, -- If you want to everride the default colors, set this to a function
+
+    custom_highlights = {}, -- Overwrite highlights with your own
+})
+
+-- dracula
+--------------------------------------------------------------------------------
+local dracula = require("dracula")
+dracula.setup({
+  -- customize dracula color palette
+  colors = {
+    bg = "#282A36",
+    fg = "#F8F8F2",
+    selection = "#44475A",
+    comment = "#6272A4",
+    red = "#FF5555",
+    orange = "#FFB86C",
+    yellow = "#F1FA8C",
+    green = "#50fa7b",
+    purple = "#BD93F9",
+    cyan = "#8BE9FD",
+    pink = "#FF79C6",
+    bright_red = "#FF6E6E",
+    bright_green = "#69FF94",
+    bright_yellow = "#FFFFA5",
+    bright_blue = "#D6ACFF",
+    bright_magenta = "#FF92DF",
+    bright_cyan = "#A4FFFF",
+    bright_white = "#FFFFFF",
+    menu = "#21222C",
+    visual = "#3E4452",
+    gutter_fg = "#4B5263",
+    nontext = "#3B4048",
+  },
+  -- show the '~' characters after the end of buffers
+  show_end_of_buffer = true, -- default false
+  -- use transparent background
+  transparent_bg = true, -- default false
+  -- set custom lualine background color
+  lualine_bg_color = "#44475a", -- default nil
+  -- set italic comment
+  italic_comment = true, -- default false
+  -- overrides the default highlights see `:h synIDattr`
+  overrides = {
+    -- Examples
+    -- NonText = { fg = dracula.colors().white }, -- set NonText fg to white
+    -- NvimTreeIndentMarker = { link = "NonText" }, -- link to NonText highlight
+    -- Nothing = {} -- clear highlight of Nothing
+  },
+})
+
 -- nightfox
 --------------------------------------------------------------------------------
 
--- Palettes are the base color defines of a colorscheme.
 local palettes = {
     --white, orange, pink
     nordfox = {
-
-        red = { base = "#D8DEE9", bright = "#001100", dim = "#001100" }, -- self, lsp
+        red = { base = "#D8DEE9", bright = "#00FF00", dim = "#00FF00" }, -- self, lsp
         yellow = { base = "#8FBCBB", bright = "#8FBCBB", dim = "#8FBCBB" }, -- class names: nord7
         pink = { base = "#88C0D0", bright = "#88C0D0", dim = "#88C0D0" }, -- use: nord8
         blue = { base = "#81A1C1", bright = "#81A1C1", dim = "#81A1C1" }, -- function names: nord9
@@ -241,48 +411,53 @@ require("nightfox").setup({
     palettes = palettes,
 })
 
--- nvim-treesitter
+-- catpuccin 
 --------------------------------------------------------------------------------
-require('lualine').setup {
-    options = {
-        icons_enabled = true,
-        theme = 'auto',
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
-        disabled_filetypes = {
-            statusline = {},
-            winbar = {},
+require("catppuccin").setup({
+    flavour = "mocha", -- latte, frappe, macchiato, mocha
+    background = { -- :h background
+        light = "latte",
+        dark = "mocha",
+    },
+    transparent_background = false,
+    show_end_of_buffer = true, -- show the '~' characters after the end of buffers
+    term_colors = false,
+    dim_inactive = {
+        enabled = false,
+        shade = "dark",
+        percentage = 0.15,
+    },
+    no_italic = true, -- Force no italic
+    no_bold = true, -- Force no bold
+    styles = {
+        --comments = { "italic" },
+        --conditionals = { "italic" },
+        loops = {},
+        functions = {},
+        keywords = {},
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
+        properties = {},
+        types = {},
+        operators = {},
+    },
+    color_overrides = {
+        all = {
+            --flamingo = "#939ab7",
+            red = "#939ab7",
         },
-        ignore_focus = {},
-        always_divide_middle = true,
-        globalstatus = false,
-        refresh = {
-            statusline = 1000,
-            tabline = 1000,
-            winbar = 1000,
-        }
     },
-    sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+    custom_highlights = {},
+    integrations = {
+        cmp = true,
+        gitsigns = true,
+        nvimtree = true,
+        telescope = true,
+        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
-        lualine_y = {},
-        lualine_z = {}
-    },
-    tabline = {},
-    winbar = {},
-    inactive_winbar = {},
-    extensions = {}
-}
+})
 
 -- lastplace
 --------------------------------------------------------------------------------

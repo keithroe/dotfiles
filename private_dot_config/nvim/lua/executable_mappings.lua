@@ -124,10 +124,15 @@ vim.keymap.set('t', "<C-t>", '<cmd>FloatermToggle myfloat<cr>')
 -- LSP
 --------------------------------------------------------------------------------
 
+local bufopts = { noremap=true, silent=true, buffer=bufnr }
 -- Restart Neovim LSP
 vim.keymap.set('n', '<leader>lt', '<cmd>LspRestart<cr>')
 -- Rename the current object under the cursor, this will rename all the occurrences
 vim.keymap.set('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<cr>')
+-- take code suggestion
+vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, bufopts)
+-- Jump to object declaration
+vim.keymap.set('n', '<leader>ldd', '<cmd>lua vim.lsp.buf.declaration()<cr>')
 -- Jump to object definition
 vim.keymap.set('n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<cr>')
 -- Show the information of the object under the cursor
