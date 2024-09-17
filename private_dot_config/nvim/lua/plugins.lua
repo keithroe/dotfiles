@@ -146,7 +146,7 @@ end
 --------------------------------------------------------------------------------
 require("nvim-tree").setup({
     sort_by = "case_sensitive",
-    open_on_setup=true,
+    -- open_on_setup=true,
     actions = {
         open_file = {
             resize_window = true
@@ -155,11 +155,11 @@ require("nvim-tree").setup({
     view = {
         width=10,
         adaptive_size = true,
-        mappings = {
-            list = {
-                { key = "u", action = "dir_up" },
-            },
-        },
+        --mappings = {
+        --    list = {
+        --        { key = "u", action = "dir_up" },
+        --    },
+        --},
     },
     renderer = {
         group_empty = true,
@@ -173,7 +173,7 @@ require("nvim-tree").setup({
 --------------------------------------------------------------------------------
 require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all" (the four listed parsers should always be installed)
-    ensure_installed = { "c", "diff", "lua", "vim", "help", "rust", "toml", "cpp", "python" },
+    ensure_installed = { "c", "diff", "lua", "vim", "vimdoc", "rust", "toml", "cpp", "python" },
     auto_install = true,
     highlight = {
         enable = true,
