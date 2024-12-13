@@ -18,8 +18,20 @@ elif [ -f /etc/bash_completion ]; then
 fi
 
 #######################################################
+# PATHs
+#######################################################
+
+export PATH=/home/kmorley/bin:${PATH}
+export PATH=/usr/local/cuda/bin:${PATH}
+export PATH=/usr/local/NVIDIA-Nsight-Compute/:${PATH}
+
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+
+#######################################################
 # EXPORTS
 #######################################################
+
+export P4CONFIG=.p4config
 
 # Disable the bell
 if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
@@ -49,8 +61,8 @@ if [[ $iatest > 0 ]]; then bind "set completion-ignore-case on"; fi
 if [[ $iatest > 0 ]]; then bind "set show-all-if-ambiguous On"; fi
 
 # Set the default editor
-export EDITOR=nano
-export VISUAL=nano
+export EDITOR=nvim
+export VISUAL=nvim
 alias pico='edit'
 alias spico='sedit'
 alias nano='edit'
@@ -108,9 +120,9 @@ alias hlp='less ~/.bashrc_help'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 
 # Alias's to modified commands
-alias cp='cp -i'
-alias mv='mv -i'
-alias rm='rm -iv'
+alias cp='cp'
+alias mv='mv'
+alias rm='rm -v'
 alias mkdir='mkdir -p'
 alias ps='ps auxf'
 alias ping='ping -c 10'
@@ -119,8 +131,8 @@ alias cls='clear'
 alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
-alias vi='vim'
-alias svi='sudo vi'
+alias vi='nvim'
+alias svi='sudo nvim'
 alias vis='vim "+set si"'
 
 # Change directory aliases
@@ -139,7 +151,7 @@ alias rmd='/bin/rm  --recursive --force --verbose '
 
 # Alias's for multiple directory listing commands
 alias la='ls -Alh' # show hidden files
-alias ls='ls -aFh --color=always' # add colors and file type extensions
+alias ls='ls -Fh --color=always' # add colors and file type extensions
 alias lx='ls -lXBh' # sort by extension
 alias lk='ls -lSrh' # sort by size
 alias lc='ls -lcrh' # sort by change time

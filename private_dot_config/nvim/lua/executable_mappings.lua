@@ -117,6 +117,8 @@ vim.keymap.set('n', '<leader>tl', '<cmd>TodoTrouble loclist<cr>')
 vim.keymap.set('n', '<leader>tr', '<cmd>TodoTrouble references<cr>')
 
 -- floaterm 
+vim.g.floaterm_width=0.9
+vim.g.floaterm_height=0.9
 --------------------------------------------------------------------------------
 vim.keymap.set('n', "<C-t>", '<cmd>FloatermToggle myfloat<cr>')
 vim.keymap.set('t', "<C-t>", '<cmd>FloatermToggle myfloat<cr>')
